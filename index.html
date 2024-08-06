@@ -11,7 +11,7 @@
             const myHeaders = new Headers();
 // get token from url
 myHeaders.append("Authorization", `Bearer ${new URLSearchParams(window.location.search).get("token")}`);
-
+myHeaders.append("Cookie", "csrftoken=yKANndzC6E4v3d3oBF9XCZQnRAx1Fa1Y");
 const requestOptions = {
   method: "DELETE",
   headers: myHeaders,
