@@ -145,7 +145,9 @@ function EnterPhoneNumber({
   setVerificationId: Dispatch<SetStateAction<string>>;
   setStep: Dispatch<SetStateAction<Step>>;
 }) {
+  const [loading, setLoading] = useState(false);
   const sendOTP = async () => {
+    setLoading(true);
     const response = await fetch(
       "https://home-servicesa.com/api/v1/send-otp/",
       {
@@ -158,6 +160,7 @@ function EnterPhoneNumber({
         },
       }
     );
+    setLoading(false);
 
     if (!response.ok) {
       setError("Failed to send OTP");
@@ -206,38 +209,46 @@ function EnterPhoneNumber({
         onClick={() => {
           sendOTP();
         }}
-        className="py-4 px-6 bg-blue-100 text-blue-500 rounded-lg w-full flex items-center justify-center gap-2"
+        className={`py-4 px-6 ${
+          loading ? "bg-slate-200" : "bg-blue-100"
+        } text-blue-500 rounded-lg w-full flex items-center justify-center gap-2`}
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g clipPath="url(#clip0_92_7185)">
-            <path
-              d="M22.1525 3.55322L11.1772 21.0044L9.50686 12.4078L2.00002 7.89796L22.1525 3.55322Z"
-              stroke="#3B82F6"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M9.45557 12.4436L22.1524 3.55317"
-              stroke="#3B82F6"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_92_7185">
-              <rect width="24" height="24" fill="white" />
-            </clipPath>
-          </defs>
-        </svg>
-        <span className="text-inherit">Send OTP</span>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clipPath="url(#clip0_92_7185)">
+                <path
+                  d="M22.1525 3.55322L11.1772 21.0044L9.50686 12.4078L2.00002 7.89796L22.1525 3.55322Z"
+                  stroke="#3B82F6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.45557 12.4436L22.1524 3.55317"
+                  stroke="#3B82F6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_92_7185">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <span className="text-inherit">Send OTP</span>
+          </>
+        )}
       </button>
     </>
   );
@@ -260,7 +271,9 @@ function EnterOTP({
   accessTokenRef: React.MutableRefObject<string | null>;
   setStep: Dispatch<SetStateAction<Step>>;
 }) {
+  const [loading, setLoading] = useState(false);
   const verify = async () => {
+    setLoading(true);
     const response = await fetch(
       "https://home-servicesa.com/api/v1/customer-verify-otp/",
       {
@@ -275,6 +288,7 @@ function EnterOTP({
         },
       }
     );
+    setLoading(false);
 
     if (!response.ok) {
       setError("Failed to verify OTP");
@@ -311,24 +325,32 @@ function EnterOTP({
       />
       <button
         onClick={verify}
-        className="py-4 px-6 bg-blue-100 text-blue-500 rounded-lg w-full flex items-center justify-center gap-2"
+        className={`py-4 px-6 ${
+          loading ? "bg-slate-200" : "bg-blue-100"
+        } text-blue-500 rounded-lg w-full flex items-center justify-center gap-2`}
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M5 13L9 17L19 7"
-            stroke="#3B82F6"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <span className="text-inherit">Verify</span>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 13L9 17L19 7"
+                stroke="#3B82F6"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="text-inherit">Verify</span>
+          </>
+        )}
       </button>
     </>
   );
@@ -371,9 +393,11 @@ function DeleteAccount({
   accessTokenRef: React.MutableRefObject<string | null>;
   setStep: Dispatch<SetStateAction<Step>>;
 }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const deleteAccount = async () => {
+    setLoading(true);
     const response = await fetch(
       "https://home-servicesa.com/api/v1/delete-user/",
       {
@@ -384,6 +408,7 @@ function DeleteAccount({
         },
       }
     );
+    setLoading(false);
 
     if (!response.ok) {
       setError("Failed to delete account");
@@ -404,9 +429,11 @@ function DeleteAccount({
           onClick={() => {
             deleteAccount();
           }}
-          className="bg-red-500 text-white p-4 rounded-lg w-full text-nowrap flex items-center justify-center gap-2"
+          className={`${
+            loading ? "bg-slate-200" : "bg-red-500"
+          } text-white p-4 rounded-lg w-full text-nowrap flex items-center justify-center gap-2"`}
         >
-          Yes, delete my account
+          {loading ? <Spinner /> : "Yes, delete my account"}
         </button>
         <button
           onClick={() => {
@@ -418,5 +445,29 @@ function DeleteAccount({
         </button>
       </div>
     </>
+  );
+}
+
+function Spinner() {
+  return (
+    <div role="status">
+      <svg
+        aria-hidden="true"
+        className="w-6 h-6 text-gray-200 animate-spin fill-blue-500"
+        viewBox="0 0 100 101"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+          fill="currentColor"
+        />
+        <path
+          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+          fill="currentFill"
+        />
+      </svg>
+      <span className="sr-only">Loading...</span>
+    </div>
   );
 }

@@ -22,10 +22,17 @@ export default function MyAlertDialog({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Something went wrong</AlertDialogTitle>
-          <AlertDialogDescription>{error}</AlertDialogDescription>
+          <AlertDialogDescription className="text-slate-400">
+            {error}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={close}>OK</AlertDialogAction>
+          <AlertDialogAction
+            className="bg-blue-100 text-blue-500 hover:bg-blue-100 w-full p-6"
+            onClick={close}
+          >
+            OK
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
