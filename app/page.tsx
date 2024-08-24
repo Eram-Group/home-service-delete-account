@@ -20,6 +20,12 @@ type Country = {
   name: string;
   code: string;
 };
+
+const getImageUrl = (imageName: string) =>
+  process.env.NODE_ENV === "production"
+    ? `/home-service-delete-account/${imageName}`
+    : `/${imageName}`;
+
 const countries: Country[] = [
   {
     flag: (
@@ -27,7 +33,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/sau.png"
+        src={getImageUrl("country/sau.png")}
       />
     ),
     name: "Saudi Arabia",
@@ -39,7 +45,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/uae.png"
+        src={getImageUrl("country/uae.png")}
       />
     ),
     name: "United Arab Emirates",
@@ -51,7 +57,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/qtr.png"
+        src={getImageUrl("country/qtr.png")}
       />
     ),
     name: "Qatar",
@@ -63,7 +69,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/kuw.png"
+        src={getImageUrl("country/kuw.png")}
       />
     ),
     name: "Kuwait",
@@ -75,7 +81,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/oma.png"
+        src={getImageUrl("country/oma.png")}
       />
     ),
     name: "Oman",
@@ -87,7 +93,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/bah.png"
+        src={getImageUrl("country/bah.png")}
       />
     ),
     name: "Bahrain",
@@ -99,7 +105,7 @@ const countries: Country[] = [
         alt=""
         width={24}
         height={24}
-        src="/home-service-delete-account/country/egy.png"
+        src={getImageUrl("country/egy.png")}
       />
     ),
     name: "Egypt",
@@ -143,7 +149,7 @@ export default function Home() {
     <>
       <div className="flex flex-col justify-center gap-4 max-w-sm">
         <Image
-          src="/home-service-delete-account/home service logo.png"
+          src={getImageUrl("home service logo.png")}
           alt="Home Service Logo"
           width={100}
           height={100}
