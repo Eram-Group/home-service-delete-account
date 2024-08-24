@@ -3,24 +3,59 @@
 import { cn } from "@/lib/utils";
 import { OTPInput, SlotProps } from "input-otp";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import MyAlertDialog from "./MyAlertDialog";
+import { MySelect } from "./MySelect";
 
 type Step = "enter-phone-number" | "enter-otp" | "delete-account" | "done";
 type Country = {
-  flag: string;
+  flag: ReactNode;
   name: string;
   code: string;
 };
 const countries: Country[] = [
-  { flag: "🇸🇦", name: "Saudi Arabia", code: "+966" },
-  { flag: "🇦🇪", name: "United Arab Emirates", code: "+971" },
-  { flag: "🇶🇦", name: "Qatar", code: "+974" },
-  { flag: "🇰🇼", name: "Kuwait", code: "+965" },
-  { flag: "🇴🇲", name: "Oman", code: "+968" },
-  { flag: "🇧🇭", name: "Bahrain", code: "+973" },
-  { flag: "🇪🇬", name: "Egypt", code: "+20" },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/sau.png" />,
+    name: "Saudi Arabia",
+    code: "+966",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/uae.png" />,
+    name: "United Arab Emirates",
+    code: "+971",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/qtr.png" />,
+    name: "Qatar",
+    code: "+974",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/kuw.png" />,
+    name: "Kuwait",
+    code: "+965",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/oma.png" />,
+    name: "Oman",
+    code: "+968",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/bah.png" />,
+    name: "Bahrain",
+    code: "+973",
+  },
+  {
+    flag: <Image alt="" width={24} height={24} src="/country/egy.png" />,
+    name: "Egypt",
+    code: "+20",
+  },
 ];
 type CountryCode = (typeof countries)[number]["code"];
 
@@ -45,6 +80,15 @@ export default function Home() {
   const accessTokenRef = useRef(null);
 
   const [step, setStep] = useState<Step>("enter-phone-number");
+
+  useEffect(() => {
+    if (step === "enter-phone-number") {
+      setPhoneNumber("");
+      setOtp("");
+      setVerificationId("");
+      accessTokenRef.current = null;
+    }
+  }, [step]);
 
   return (
     <>
@@ -179,22 +223,25 @@ function EnterPhoneNumber({
     <>
       <p className="text-slate-400">
         Enter your phone number to delete your account. We will send you an OTP
-        to verify your identity
+        to verify your identity.
       </p>
-      <div className="flex items-center border-2 border-slate-200 rounded-lg">
-        <select
+      <div className="flex items-center border-2 border-slate-200 rounded-lg h-14">
+        <MySelect
           value={countryCode}
-          onChange={(e) => {
-            setCountryCode(e.target.value as CountryCode);
+          onChange={(value) => {
+            setCountryCode(value);
           }}
-          className="p-4 rounded-l-lg border-r-2 border-slate-200"
-        >
-          {countries.map((country) => (
-            <option key={country.code} value={country.code}>
-              {country.flag} {country.code}
-            </option>
-          ))}
-        </select>
+          placeholder="Select"
+          label="Dial code"
+          options={countries.map((country) => ({
+            value: country.code,
+            label: (
+              <div className="flex items-center gap-2">
+                {country.flag} {country.code}
+              </div>
+            ),
+          }))}
+        />
         <input
           type="tel" // Use type="tel" for phone number input
           pattern="[0-9]{10}" // Specify a pattern for valid phone numbers
@@ -202,7 +249,7 @@ function EnterPhoneNumber({
           onChange={(e) => {
             setPhoneNumber(e.target.value);
           }}
-          className="w-full p-4 rounded-r-lg"
+          className="px-4 w-full h-full rounded-r-lg focus:outline outline-2 outline-blue-500"
         />
       </div>
       <button
@@ -308,7 +355,7 @@ function EnterOTP({
       <p className="text-slate-400">
         We have sent an OTP to{" "}
         <strong className="text-inherit">{fullPhoneNumber}</strong>. Please
-        enter the OTP to verify
+        enter the OTP to verify.
       </p>
       <OTPInput
         value={otp}
@@ -394,7 +441,6 @@ function DeleteAccount({
   setStep: Dispatch<SetStateAction<Step>>;
 }) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const deleteAccount = async () => {
     setLoading(true);
@@ -437,7 +483,7 @@ function DeleteAccount({
         </button>
         <button
           onClick={() => {
-            router.refresh();
+            setStep("enter-phone-number");
           }}
           className="bg-blue-100 text-blue-500 p-4 rounded-lg w-full text-nowrap flex items-center justify-center gap-2"
         >
