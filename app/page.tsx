@@ -249,12 +249,15 @@ function EnterPhoneNumber({
           onChange={(e) => {
             setPhoneNumber(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (!loading && e.key === "Enter") sendOTP();
+          }}
           className="px-4 w-full h-full rounded-r-lg focus:outline outline-2 outline-blue-500"
         />
       </div>
       <button
         onClick={() => {
-          sendOTP();
+          if (!loading) sendOTP();
         }}
         className={`py-4 px-6 ${
           loading ? "bg-slate-200" : "bg-blue-100"
@@ -360,6 +363,9 @@ function EnterOTP({
       <OTPInput
         value={otp}
         onChange={setOtp}
+        onKeyDown={(e) => {
+          if (!loading && otp.length === 4 && e.key === "Enter") verify();
+        }}
         maxLength={4}
         containerClassName="group flex w-full items-center has-[:disabled]:opacity-30"
         render={({ slots }) => (
