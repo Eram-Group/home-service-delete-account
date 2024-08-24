@@ -22,37 +22,86 @@ type Country = {
 };
 const countries: Country[] = [
   {
-    flag: <Image alt="" width={24} height={24} src="/country/sau.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/sau.png"
+      />
+    ),
     name: "Saudi Arabia",
     code: "+966",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/uae.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/uae.png"
+      />
+    ),
     name: "United Arab Emirates",
     code: "+971",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/qtr.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/qtr.png"
+      />
+    ),
     name: "Qatar",
     code: "+974",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/kuw.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/kuw.png"
+      />
+    ),
     name: "Kuwait",
     code: "+965",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/oma.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/oma.png"
+      />
+    ),
     name: "Oman",
     code: "+968",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/bah.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/bah.png"
+      />
+    ),
     name: "Bahrain",
     code: "+973",
   },
   {
-    flag: <Image alt="" width={24} height={24} src="/country/egy.png" />,
+    flag: (
+      <Image
+        alt=""
+        width={24}
+        height={24}
+        src="/home-service-delete-account/country/egy.png"
+      />
+    ),
     name: "Egypt",
     code: "+20",
   },
@@ -94,7 +143,7 @@ export default function Home() {
     <>
       <div className="flex flex-col justify-center gap-4 max-w-sm">
         <Image
-          src="/home service logo.png"
+          src="/home-service-delete-account/home service logo.png"
           alt="Home Service Logo"
           width={100}
           height={100}
