@@ -380,7 +380,7 @@ function EnterOTP({
   const verify = async () => {
     setLoading(true);
     const response = await fetch(
-      "https://home-servicesa.com/api/v1/customer-verify-otp/",
+      "https://homeservices.eramapps.com/api/v1/customer-verify-otp/",
       {
         method: "POST",
         body: JSON.stringify({
@@ -506,7 +506,7 @@ function DeleteAccount({
   const deleteAccount = async () => {
     setLoading(true);
     const response = await fetch(
-      "https://home-servicesa.com/api/v1/delete-user/",
+      "https://homeservices.eramapps.com/api/v1/delete-user/",
       {
         method: "DELETE",
         headers: {
