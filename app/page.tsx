@@ -248,7 +248,7 @@ function EnterPhoneNumber({
   const sendOTP = async () => {
     setLoading(true);
     const response = await fetch(
-      "https://home-servicesa.com/api/v1/send-otp/",
+      "https://homeservices.eramapps.com/api/v1/send-otp/",
       {
         method: "POST",
         body: JSON.stringify({
